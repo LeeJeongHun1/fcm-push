@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+
+<script>
+    const firebaseModule = (function () {
+        async function init() {
+            // Your web app's Firebase configuration
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                        .then(registration => {
+                            var firebaseConfig = {
+                                apiKey: "AIzaSyBWbLdjemTbpsGckTlyDqaATpbI_0usdHw",
+                                authDomain: "woowa-turkey.firebaseapp.com",
+                                databaseURL: "https://woowa-turkey.firebaseio.com",
+                                projectId: "woowa-turkey",
+                                storageBucket: "",
+                                messagingSenderId: "732784692174",
+                                appId: "1:732784692174:web:555e23a165bac677"
+                            };
+                            // Initialize Firebase
+                            firebase.initializeApp(firebaseConfig);
+
+
+                            // Show Notificaiton Dialog
+                            const messaging = firebase.messaging();
+                            messaging.requestPermission()
+                                .then(function() {
+                                    console.log(messaging.getToken())
+                                    return messaging.getToken();
+                                })
+                                // .then(async function(token) {
+                                //     await fetch('/register', { method: 'post', body: token })
+                                //     messaging.onMessage(payload => {
+                                //         const title = payload.notification.title
+                                //         const options = {
+                                //             body : payload.notification.body
+                                //         }
+                                //         navigator.serviceWorker.ready.then(registration => {
+                                //             registration.showNotification(title, options);
+                                //         })
+                                //     })
+                                // })
+                                // .catch(function(err) {
+                                //     console.log("Error Occured");
+                                // })
+                        })
+                })
+            }
+        }
+
+        return {
+            init: function () {
+                init()
+            }
+        }
+    })()
+
+    firebaseModule.init()
+</script>
+<!--<script type="module">-->
+<!--    // Import the functions you need from the SDKs you need-->
+<!--    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";-->
+<!--    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";-->
+<!--    // TODO: Add SDKs for Firebase products that you want to use-->
+<!--    // https://firebase.google.com/docs/web/setup#available-libraries-->
+
+<!--    // Your web app's Firebase configuration-->
+<!--    // For Firebase JS SDK v7.20.0 and later, measurementId is optional-->
+<!--    const firebaseConfig = {-->
+<!--        apiKey: "AIzaSyC47WjV1sndK5hd_ngs7DfKg1r8FPTA588",-->
+<!--        authDomain: "web-push-76110.firebaseapp.com",-->
+<!--        projectId: "web-push-76110",-->
+<!--        storageBucket: "web-push-76110.appspot.com",-->
+<!--        messagingSenderId: "271762138787",-->
+<!--        appId: "1:271762138787:web:1316caf3ebade25322c116",-->
+<!--        measurementId: "G-0B8ZCRX7BY"-->
+<!--    };-->
+
+<!--    // Initialize Firebase-->
+<!--    const app = initializeApp(firebaseConfig);-->
+<!--    const analytics = getAnalytics(app);-->
+<!--    // For Firebase JS SDK v7.20.0 and later, measurementId is optional-->
+<!--    const firebaseConfig = {-->
+<!--        apiKey: "AIzaSyC47WjV1sndK5hd_ngs7DfKg1r8FPTA588",-->
+<!--        authDomain: "web-push-76110.firebaseapp.com",-->
+<!--        projectId: "web-push-76110",-->
+<!--        storageBucket: "web-push-76110.appspot.com",-->
+<!--        messagingSenderId: "271762138787",-->
+<!--        appId: "1:271762138787:web:1316caf3ebade25322c116",-->
+<!--        measurementId: "G-0B8ZCRX7BY"-->
+<!--    };-->
+<!--</script>-->
+</html>
