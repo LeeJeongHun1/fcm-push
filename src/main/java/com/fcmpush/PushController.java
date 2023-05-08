@@ -1,12 +1,12 @@
 package com.fcmpush;
 
+import com.fcmpush.dto.MessageDto;
+import com.fcmpush.service.PushService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -15,14 +15,22 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class PushController {
 
+    private final PushService pushService;
+
     @RequestMapping()
-    public String push() {
+    public String getToken() {
         System.out.println("dsadas");
         return "/fcm-snipet";
 //        restTemplate.getForObject("https://fcm.googleapis.com/v1/web-push-76110/messages:send", String.class);
 //        ResponseEntity<String> exchange = restTemplate.exchange("https://fcm.googleapis.com/v1/projects/web-push-76110/messages:send", HttpMethod.POST, null, String.class);
     }
 
+
+    @ResponseBody
+    @PostMapping("/push")
+    public void sendPush(@RequestBody MessageDto messageDto) {
+        pushService.sendPush(messageDto);
+    }
 }
 
 //@RequiredArgsConstructor
